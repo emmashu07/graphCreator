@@ -3,7 +3,7 @@
 
 using namespace std;
 
-//void addVertex(int* array);
+void addVertex(int array[20][20], int count);
 //void addEdge(int weight, char firstVertex, char secondVertex);
 void displayMatrix(char labels[20], int array[20][20], int count);
 
@@ -19,17 +19,16 @@ int main() {
 		cout << "Enter add vertex, add edge, remove vertex, remove edge, shortest path, or quit: ";
 		cin.get(input, 20);
 		cin.ignore(20, '\n');
-		cout << endl;
+
 		if (strcmp(input, "ADD VERTEX") == 0) {
 			char label;
 			cout << "Enter label (must be a character, e.g. A): ";
 			cin >> label;
-			cin.ignore('\n');
-			cout << endl;
+			cin.ignore(2, '\n');
 
 			count++;
 			labels[count] = label;
-			//addVertex(array);
+			addVertex(array, count);
 			displayMatrix(labels, array, count);
 		}
 		else if (strcmp(input, "ADD EDGE") == 0) {
@@ -61,5 +60,11 @@ void displayMatrix(char labels[20], int array[20][20], int count) {
 			cout << array[i][j] << '\t';
 		}
 		cout << endl;
+	}
+}
+
+void addVertex(int array[20][20], int count) {
+	for (int i = 0; i < count; i++) {
+		array[count][i] = 0;
 	}
 }
