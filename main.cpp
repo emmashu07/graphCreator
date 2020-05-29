@@ -1,13 +1,18 @@
+/*
+ * Emma Shu, 5/28/20: Graph creator creates an adjacency matrix that represents a graph.
+ */
+
 #include <iostream>
 #include <cstring>
 
 using namespace std;
 
+// Functions.
 void addVertex(int array[][20], int &count, char labels[], char label);
 void addEdge(int weight, int first, int second, int array[][20]);
-void removeVertex(int label, int count, char labels[], int array[][20]);
+void removeVertex(int index, int &count, char labels[], int array[][20]);
 void removeEdge(int first, int second, int array[][20]);
-
+// Helper functions.
 void display(char labels[], int array[][20], int count);
 int toInt(char label, char labels[], int count);
 
@@ -80,7 +85,17 @@ int main() {
 
 		}
 		else if (strcmp(input, "REMOVE VERTEX") == 0) {
-		
+			char label;
+			int index;
+			cout << "Enter label (must be a character, e.g. A): ";
+			cin >> label;
+			cin.ignore(2, '\n');
+			
+			index = toInt(label, labels, count);
+
+			removeVertex(index, count, labels, array);
+			display(labels, array, count);
+	
 		}
 		else if (strcmp(input, "SHORTEST PATH") == 0) {
 		
@@ -92,7 +107,7 @@ int main() {
 	return 0;
 }
 
-void display(char labels[], int array[][20], int count) {
+void display(char labels[], int array[][20], int count) { // Displays the matrix.
 	for (int i = 0; i < count; i++) {
 		cout << '\t' << labels[i];
 	}
@@ -106,7 +121,7 @@ void display(char labels[], int array[][20], int count) {
 	}
 }
 
-void addVertex(int array[][20], int &count, char labels[], char label) {
+void addVertex(int array[][20], int &count, char labels[], char label) { // Adds an empty row and column to the ends of the matrix.
 	labels[count] = label;
 	for (int i = 0; i <= count; i++) {
 		array[i][count] = 0;
@@ -117,7 +132,7 @@ void addVertex(int array[][20], int &count, char labels[], char label) {
 	count++;
 }
 
-int toInt(char label, char labels[], int count) {
+int toInt(char label, char labels[], int count) { // Finds the label and returns its position in the matrix.
 	for (int i = 0; i <= count; i++) {
 		if (label == labels[i]) {
 			return i;
@@ -126,7 +141,7 @@ int toInt(char label, char labels[], int count) {
 	return -1;
 }
 
-void addEdge(int weight, int first, int second, int array[][20]) {
+void addEdge(int weight, int first, int second, int array[][20]) { // Adds an edge to the matrix.
 	if (first < 0 || second < 0) {
 		cout << "The vertex is not in the matrix." << endl;
 	}
@@ -135,11 +150,30 @@ void addEdge(int weight, int first, int second, int array[][20]) {
 	}
 }
 
-void removeEdge(int first, int second, int array[][20]) {
+void removeEdge(int first, int second, int array[][20]) { // Removes and edge from the matrix.
 	if (first < 0 || second < 0) {
 		cout << "The vertex is not in the matrix." << endl;
 	}
 	else {
 		array[first][second] = 0;
 	}
+}
+
+void removeVertex(int index, int& count, char labels[], int array[][20]) { // Removes the vertex by shifting the matrix.
+	for (int i = 0; i < count; i++) {
+		if (i >= index && i+1 != count) {
+			labels[i] = labels[i+1];
+		}
+		else if (i+1 == count) {
+			labels[i] = '\0';
+		}
+	}
+	/*for (int i = 0; i < count; i++) {
+		
+		for (int j = 0; j < count; j++) {
+			
+		}
+	}*/
+	
+		
 }
