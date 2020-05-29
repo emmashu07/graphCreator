@@ -4,8 +4,9 @@
 using namespace std;
 
 void addVertex(int array[][20], int count);
-//void addEdge(int weight, char firstVertex, char secondVertex);
+void addEdge(int weight, int first, int second, int array[][20]);
 void displayMatrix(char labels[], int array[][20], int count);
+int toInt(char label, char labels[], int count);
 
 int main() {
 	int array[20][20];
@@ -32,6 +33,27 @@ int main() {
 			count++;
 		}
 		else if (strcmp(input, "ADD EDGE") == 0) {
+			char firstLabel;
+			char secondLabel;
+			int first;
+			int second;
+			int weight;
+
+			cout << "Please enter the first label: ";
+			cin >> firstLabel;
+			cin.ignore(2, '\n');
+			cout << "Please enter the second label: ";
+			cin >> secondLabel;
+			cin.ignore(2, '\n');
+			cout << "Please enter the weight: ";
+			cin >> weight;
+			cin.ignore(2, '\n');
+
+
+			first = toInt(firstLabel, labels, count);
+			second = toInt(secondLabel, labels, count);
+		
+			addEdge(weight, first, second, array);
 		
 		}
 		else if (strcmp(input, "REMOVE EDGE") == 0) {
@@ -71,4 +93,17 @@ void addVertex(int array[][20], int count) {
 	for (int i = 0; i <= count; i++) {
 		array[count][i] = 0;
 	}
+}
+
+int toInt(char label, char labels[], int count) {
+	for (int i = 0; i <= count; i++) {
+		if (label == labels[i]) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+void addEdge(int weight, int first, int second, int array[][20]) {
+	array[first][second] = weight;
 }
