@@ -3,11 +3,15 @@
 
 using namespace std;
 
-//void addVertex(char name);
+//void addVertex(int* array);
 //void addEdge(int weight, char firstVertex, char secondVertex);
+void displayMatrix(char labels[20], int array[20][20], int count);
 
 int main() {
 	int array[20][20];
+	char labels[20];
+	int count = 0;
+
 	char input[20];
 	bool running = true;
 
@@ -15,8 +19,18 @@ int main() {
 		cout << "Enter add vertex, add edge, remove vertex, remove edge, shortest path, or quit: ";
 		cin.get(input, 20);
 		cin.ignore(20, '\n');
+		cout << endl;
 		if (strcmp(input, "ADD VERTEX") == 0) {
-		
+			char label;
+			cout << "Enter label (must be a character, e.g. A): ";
+			cin >> label;
+			cin.ignore('\n');
+			cout << endl;
+
+			count++;
+			labels[count] = label;
+			//addVertex(array);
+			displayMatrix(labels, array, count);
 		}
 		else if (strcmp(input, "ADD EDGE") == 0) {
 		
@@ -34,7 +48,18 @@ int main() {
 			running = false;
 		}
 	}
-	
-	
 	return 0;
+}
+
+void displayMatrix(char labels[20], int array[20][20], int count) {
+	for (int i = 0; i < count; i++) {
+		cout << '\t' << labels[i];
+	}
+	for (int i = 0; i < count; i++) {
+		cout << labels[i] << '\t';
+		for (int j = 0; j < count; j++) {
+			cout << array[i][j] << '\t';
+		}
+		cout << endl;
+	}
 }
