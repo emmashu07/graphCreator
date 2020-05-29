@@ -5,6 +5,9 @@ using namespace std;
 
 void addVertex(int array[][20], int count);
 void addEdge(int weight, int first, int second, int array[][20]);
+//void removeVertex(int 
+void removeEdge(int first, int second, int array[][20]);
+
 void displayMatrix(char labels[], int array[][20], int count);
 int toInt(char label, char labels[], int count);
 
@@ -54,10 +57,29 @@ int main() {
 			second = toInt(secondLabel, labels, count);
 		
 			addEdge(weight, first, second, array);
+			displayMatrix(labels, array, count);
 		
 		}
 		else if (strcmp(input, "REMOVE EDGE") == 0) {
+			char firstLabel;
+			char secondLabel;
+			int first;
+			int second;
+
+			cout << "Please enter the first label: ";
+			cin >> firstLabel;
+			cin.ignore(2, '\n');
+			cout << "Please enter the second label: ";
+			cin >> secondLabel;
+			cin.ignore(2, '\n');
+
+
+			first = toInt(firstLabel, labels, count);
+			second = toInt(secondLabel, labels, count);
 		
+			removeEdge(first, second, array);
+			displayMatrix(labels, array, count);
+
 		}
 		else if (strcmp(input, "REMOVE VERTEX") == 0) {
 		
@@ -105,5 +127,19 @@ int toInt(char label, char labels[], int count) {
 }
 
 void addEdge(int weight, int first, int second, int array[][20]) {
-	array[first][second] = weight;
+	if (first < 0 || second < 0) {
+		cout << "The vertex is not in the matrix." << endl;
+	}
+	else {
+		array[first][second] = weight;
+	}
+}
+
+void removeEdge(int first, int second, int array[][20]) {
+	if (first < 0 || second < 0) {
+		cout << "The vertexis not in the matrix." << endl;
+	}
+	else {
+		array[first][second] = 0;
+	}
 }
