@@ -10,7 +10,7 @@ void displayMatrix(char labels[20], int array[20][20], int count);
 int main() {
 	int array[20][20];
 	char labels[20];
-	int count = 0;
+	int count = 1;
 
 	char input[20];
 	bool running = true;
@@ -26,10 +26,10 @@ int main() {
 			cin >> label;
 			cin.ignore(2, '\n');
 
-			count++;
 			labels[count] = label;
 			addVertex(array, count);
 			displayMatrix(labels, array, count);
+			count++;
 		}
 		else if (strcmp(input, "ADD EDGE") == 0) {
 		
@@ -51,12 +51,13 @@ int main() {
 }
 
 void displayMatrix(char labels[20], int array[20][20], int count) {
-	for (int i = 0; i < count; i++) {
+	for (int i = 1; i <= count; i++) {
 		cout << '\t' << labels[i];
 	}
-	for (int i = 0; i < count; i++) {
+	cout << endl;
+	for (int i = 1; i <= count; i++) {
 		cout << labels[i] << '\t';
-		for (int j = 0; j < count; j++) {
+		for (int j = 1; j <= count; j++) {
 			cout << array[i][j] << '\t';
 		}
 		cout << endl;
@@ -64,7 +65,7 @@ void displayMatrix(char labels[20], int array[20][20], int count) {
 }
 
 void addVertex(int array[20][20], int count) {
-	for (int i = 0; i < count; i++) {
+	for (int i = 1; i <= count; i++) {
 		array[count][i] = 0;
 	}
 }
