@@ -3,12 +3,12 @@
 
 using namespace std;
 
-void addVertex(int array[][20], int count);
+void addVertex(int array[][20], int &count, char labels[], char label);
 void addEdge(int weight, int first, int second, int array[][20]);
-//void removeVertex(int 
+void removeVertex(int label, int count, char labels[], int array[][20]);
 void removeEdge(int first, int second, int array[][20]);
 
-void displayMatrix(char labels[], int array[][20], int count);
+void display(char labels[], int array[][20], int count);
 int toInt(char label, char labels[], int count);
 
 int main() {
@@ -30,10 +30,8 @@ int main() {
 			cin >> label;
 			cin.ignore(2, '\n');
 
-			labels[count] = label;
-			addVertex(array, count);
-			displayMatrix(labels, array, count);
-			count++;
+			addVertex(array, count, labels, label);
+			display(labels, array, count);
 		}
 		else if (strcmp(input, "ADD EDGE") == 0) {
 			char firstLabel;
@@ -57,7 +55,7 @@ int main() {
 			second = toInt(secondLabel, labels, count);
 		
 			addEdge(weight, first, second, array);
-			displayMatrix(labels, array, count);
+			display(labels, array, count);
 		
 		}
 		else if (strcmp(input, "REMOVE EDGE") == 0) {
@@ -78,7 +76,7 @@ int main() {
 			second = toInt(secondLabel, labels, count);
 		
 			removeEdge(first, second, array);
-			displayMatrix(labels, array, count);
+			display(labels, array, count);
 
 		}
 		else if (strcmp(input, "REMOVE VERTEX") == 0) {
@@ -94,27 +92,29 @@ int main() {
 	return 0;
 }
 
-void displayMatrix(char labels[], int array[][20], int count) {
-	for (int i = 0; i <= count; i++) {
+void display(char labels[], int array[][20], int count) {
+	for (int i = 0; i < count; i++) {
 		cout << '\t' << labels[i];
 	}
 	cout << endl;
-	for (int i = 0; i <= count; i++) {
+	for (int i = 0; i < count; i++) {
 		cout << labels[i] << '\t';
-		for (int j = 0; j <= count; j++) {
+		for (int j = 0; j < count; j++) {
 			cout << array[i][j] << '\t';
 		}
 		cout << endl;
 	}
 }
 
-void addVertex(int array[][20], int count) {
+void addVertex(int array[][20], int &count, char labels[], char label) {
+	labels[count] = label;
 	for (int i = 0; i <= count; i++) {
 		array[i][count] = 0;
 	}
 	for (int i = 0; i <= count; i++) {
 		array[count][i] = 0;
 	}
+	count++;
 }
 
 int toInt(char label, char labels[], int count) {
@@ -137,7 +137,7 @@ void addEdge(int weight, int first, int second, int array[][20]) {
 
 void removeEdge(int first, int second, int array[][20]) {
 	if (first < 0 || second < 0) {
-		cout << "The vertexis not in the matrix." << endl;
+		cout << "The vertex is not in the matrix." << endl;
 	}
 	else {
 		array[first][second] = 0;
