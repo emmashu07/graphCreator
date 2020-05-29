@@ -3,14 +3,14 @@
 
 using namespace std;
 
-void addVertex(int array[20][20], int count);
+void addVertex(int array[][20], int count);
 //void addEdge(int weight, char firstVertex, char secondVertex);
-void displayMatrix(char labels[20], int array[20][20], int count);
+void displayMatrix(char labels[], int array[][20], int count);
 
 int main() {
 	int array[20][20];
 	char labels[20];
-	int count = 1;
+	int count = 0;
 
 	char input[20];
 	bool running = true;
@@ -50,22 +50,25 @@ int main() {
 	return 0;
 }
 
-void displayMatrix(char labels[20], int array[20][20], int count) {
-	for (int i = 1; i <= count; i++) {
+void displayMatrix(char labels[], int array[][20], int count) {
+	for (int i = 0; i <= count; i++) {
 		cout << '\t' << labels[i];
 	}
 	cout << endl;
-	for (int i = 1; i <= count; i++) {
+	for (int i = 0; i <= count; i++) {
 		cout << labels[i] << '\t';
-		for (int j = 1; j <= count; j++) {
+		for (int j = 0; j <= count; j++) {
 			cout << array[i][j] << '\t';
 		}
 		cout << endl;
 	}
 }
 
-void addVertex(int array[20][20], int count) {
-	for (int i = 1; i <= count; i++) {
+void addVertex(int array[][20], int count) {
+	for (int i = 0; i <= count; i++) {
+		array[i][count] = 0;
+	}
+	for (int i = 0; i <= count; i++) {
 		array[count][i] = 0;
 	}
 }
