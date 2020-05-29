@@ -168,12 +168,28 @@ void removeVertex(int index, int& count, char labels[], int array[][20]) { // Re
 			labels[i] = '\0';
 		}
 	}
-	/*for (int i = 0; i < count; i++) {
-		
+	for (int i = 0; i < count; i++) {
 		for (int j = 0; j < count; j++) {
-			
+			if (i > j) {
+				if (i >= index && i+1 != count) {
+					array[i][j] = array[i+1][j];
+				}
+				else if (i+1 == count) {
+					array[i][j] = 0;
+				}
+			}
+			else if (i < j) {
+				if (j >= index && j+1 != count) {
+					array[i][j] = array[i][j+1];
+				}
+				else if (i+1 == count) {
+					array[i][j] = 0;
+				}	
+			}
+			else {
+				array[i][j] = array[i+1][j+1];
+			}
 		}
-	}*/
-	
-		
+	}	
+	count--;
 }
